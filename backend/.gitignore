@@ -7,8 +7,8 @@ backend/venv/
 **/__pycache__/
 
 # Local SQLite database
-core/db.sqlite3
-core/test_db.sqlite3
+db.sqlite3
+test_db.sqlite3
 
 # Environment variables file
 .env
