@@ -7,11 +7,14 @@ backend/venv/
 **/__pycache__/
 
 # Local SQLite database
-core/db.sqlite3
-core/test_db.sqlite3
+db.sqlite3
+test_db.sqlite3
 
 # Environment variables file
 .env
 
 # VS Code workspace settings
 .vscode/
+
+core/__pycache__/__init__.cpython-313.pyc
+core/__pycache__/settings.cpython-313.pyc
