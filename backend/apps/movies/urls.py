@@ -3,9 +3,9 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
+router.register(r'watchlist', views.WatchListViewSet, basename='watchlist')
 router.register(r'movies', views.MovieViewSet)
 router.register(r'tv-shows', views.TVShowViewSet)
-router.register(r'watchlist', views.WatchListViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
