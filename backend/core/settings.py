@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     # Local apps
     'apps.movies',
     'apps.users',
-    'apps.admin_dashboard',
     ]
 
 MIDDLEWARE = [
