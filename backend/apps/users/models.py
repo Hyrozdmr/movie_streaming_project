@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 
+
 class User(AbstractUser):
-    watchlist = models.ManyToManyField('movies.Movie', related_name='users_watching')
-    watchlist_tv = models.ManyToManyField('movies.TVShow', related_name='users_watching')
+    # Relationships to Movie and TVShow models
+    watchlist = models.ManyToManyField('movies.Movie', related_name='users_movie_watchlist')
+    watchlist_tv = models.ManyToManyField('movies.TVShow', related_name='users_tv_watchlist')
 
     # Specify custom related_name for groups and user_permissions
     groups = models.ManyToManyField(
@@ -21,5 +23,3 @@ class User(AbstractUser):
         help_text='Specific permissions for this user.',
         related_query_name='user'
     )
-
-    
