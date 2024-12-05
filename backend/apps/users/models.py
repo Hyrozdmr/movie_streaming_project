@@ -1,25 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import User
+from apps.movies.models import Movie, TVShow
 
+class WatchList(models.Model):
+    user = models.ForeignKey(User, related_name="watchlist", on_delete=models.CASCADE)
+    media_type = models.CharField(max_length=50, choices=[('movie', 'Movie'), ('tv', 'TVShow')])
+    movie = models.ForeignKey(Movie, related_name="watchlists", null=True, blank=True, on_delete=models.CASCADE)
+    tv_show = models.ForeignKey(TVShow, related_name="watchlists", null=True, blank=True, on_delete=models.CASCADE)
 
-class User(AbstractUser):
-    # Relationships to Movie and TVShow models
-    watchlist = models.ManyToManyField('movies.Movie', related_name='users_movie_watchlist')
-    watchlist_tv = models.ManyToManyField('movies.TVShow', related_name='users_tv_watchlist')
-
-    # Specify custom related_name for groups and user_permissions
-    groups = models.ManyToManyField(
-        Group,
-        related_name='custom_user_set',  # Custom reverse relationship for groups
-        blank=True,
-        help_text='The groups this user belongs to.',
-        related_query_name='user'
-    )
-    
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name='custom_user_permissions_set',  # Custom reverse relationship for user_permissions
-        blank=True,
-        help_text='Specific permissions for this user.',
-        related_query_name='user'
-    )
+    def __str__(self):
+        return f"{self.user.username} - {self.media_type}"

@@ -1,6 +1,5 @@
 from django.db import models
-from django.conf import settings  # Import settings to use AUTH_USER_MODEL
-
+from django.conf import settings
 
 class Movie(models.Model):
     tmdb_id = models.IntegerField(unique=True)
@@ -19,6 +18,11 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_full_poster_path(self):
+        # Assuming you use the TMDB base URL
+        base_url = 'https://image.tmdb.org/t/p/w500'
+        return f"{base_url}{self.poster_path}"
 
 
 class TVShow(models.Model):
@@ -39,23 +43,7 @@ class TVShow(models.Model):
     def __str__(self):
         return self.title
 
-
-class WatchList(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,  # Use the custom User model
-        on_delete=models.CASCADE,
-        related_name="user_watchlist"
-    )
-    movie = models.ForeignKey(
-        Movie, on_delete=models.CASCADE, null=True, blank=True, related_name="in_watchlists"
-    )
-    tv_show = models.ForeignKey(
-        TVShow, on_delete=models.CASCADE, null=True, blank=True, related_name="in_watchlists"
-    )
-    added_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user.username}'s Watchlist Item"
-
-    class Meta:
-        unique_together = ('user', 'movie', 'tv_show')
+    def get_full_poster_path(self):
+        # Assuming you use the TMDB base URL
+        base_url = 'https://image.tmdb.org/t/p/w500'
+        return f"{base_url}{self.poster_path}"
